@@ -11,4 +11,4 @@ EXPOSE 5173
 COPY --from=build /dist /usr/share/nginx/html
 COPY --from=build nginx.conf /etc/nginx/conf.d/default.conf
 
-CMD ['nginx', '-g', 'daemon off;']
+CMD ["nginx", "-g", "daemon off;"]
