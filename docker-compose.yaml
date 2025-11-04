@@ -13,8 +13,30 @@ services:
       - frontend 
     networks:
       - dev
+  db:
+    image: "postgres:17.2-alpine"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5454:5432"
+    networks:
+      - dev  
+    environment:
+      POSTGRES_DB: online-store
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: lingostan
 
   backend:
+    environment:
+      DB_NAME: online-store
+      DB_USER: postgres
+      DB_PASSWORD: lingostan
+      POSTGRES_DB: 
+      DB_HOST: db
+      DB_PORT: 5432
+      SECRET_KEY: secret_key_qwerty
+        
     build:
       context: ./server
     networks:
@@ -25,3 +47,6 @@ services:
       context: ./ui
     networks:
         - dev
+volumes: 
+  postgres_data: 
+      
